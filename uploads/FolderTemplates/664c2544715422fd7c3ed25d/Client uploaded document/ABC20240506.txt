@@ -1,0 +1,76 @@
+<div>
+         
+          <div class='create-email-temp-container'>
+            <div class='create-email-temp-btns' style={{ display: 'flex', gap: '20px' }}>
+              <div class='createtemp'>
+
+                <button class='btn1' onClick={handleCreateTemplateClick}>Create template</button>
+
+              </div>
+              <div class='copy-from-library'>
+                <button class='btn1'>Copy From Library</button>
+              </div>
+            </div>
+
+            <div class='create-email-temp-content'>
+              {isLoading ? (
+                <div class="-loading" style={{ textAlign: 'center' }}>
+                  <div class="-loading-inner">Loading...</div>
+                </div>
+              ) : (
+                <div>
+                  <table style={{ marginTop: '20px' }} >
+                    <thead>
+                      <tr >
+                        <th >Name</th>
+                        <th >Subject</th>
+                        <th>Used in pipelines</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentTemplates.map((template) => (
+                        <tr key={template._id}>
+                          <td style={{ width: '35%', textAlign: 'center', padding: '8px', borderBottom: '1px solid #ccc' }}>
+                            <span className="btn btn_link" onClick={(event) => { handleEdit(template._id, event) }} style={{ textDecoration: 'none', color: '#007bff' }}>{template.templatename}</span>
+                          </td>
+                          <td style={{ width: '35%', textAlign: 'center', padding: '8px', borderBottom: '1px solid #ccc' }}>
+                            {template.emailsubject}
+                          </td>
+                          <td style={{ width: '35%', textAlign: 'center', padding: '8px', borderBottom: '1px solid #ccc' }}>
+                            {template.usedInPipelines}
+                          </td>
+                          <td>
+                            <div onClick={() => toggleMenu(template._id)} style={{ cursor: 'pointer', fontSize: '20px' }}>
+                              &#8942;
+                            </div>
+                            {openMenuId === template._id && (
+                              <div style={{ top: 'auto', position: 'absolute', boxShadow: '2px 1px hsl(0, 5%, 92%)', padding: '8px ', fontSize: '12px', background: "#fff" }} className="create-email-temp-menu-options">
+                                <div onClick={() => handleEdit(template._id)} style={{ color: 'blue', cursor: 'pointer' }}>Edit</div>
+                                <div onClick={() => handleDelete(template._id)} style={{ color: 'red', cursor: 'pointer' }}>Delete</div>
+                              </div>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+              )}
+            </div>
+
+          </div>
+          <div>
+            <ReactPaginate
+              pageCount={totalPages}
+              pageRangeDisplayed={5}
+              marginPagesDisplayed={2}
+              onPageChange={handlePageChange}
+              containerClassName={'pagination'}
+              activeClassName={'active'}
+              previousLabel={<MdKeyboardDoubleArrowLeft style={{ cursor: 'pointer' }} />}
+              nextLabel={<MdKeyboardDoubleArrowRight style={{ cursor: 'pointer' }} />}
+            />
+          </div>
+        </div>

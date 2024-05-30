@@ -97,6 +97,9 @@ app.use("/", teammembersavedemail);
 const sendBulkEmails = require("../pmsbackend/controllers/middlewares/sendBulkEmails");
 app.use("/", sendBulkEmails);
 
+//! ChatEmailTemplate Routes
+const templateChatEMailSend = require("../pmsbackend/controllers/middlewares/templateChatEmailsend");
+app.use("/", templateChatEMailSend);
 
 app.use(
   session({

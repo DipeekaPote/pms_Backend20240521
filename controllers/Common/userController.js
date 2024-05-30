@@ -137,7 +137,7 @@ const getUserByEmail = async (req, res) => {
     const user = await User.find({ email });
 
     if (user.length === 0) {
-      return res.status(200).json({ error: "No such User" });
+      return res.status(200).json({ error: "No such User", user });
     }
 
     res.status(200).json({ message: "User retrieved successfully", user });

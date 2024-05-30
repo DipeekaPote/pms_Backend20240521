@@ -6,7 +6,7 @@ const Contact = require('../../models/Common/contactModel.js');
 const moment = require('moment');
 
 router.post("/sendBulkEmails", async (req, res) => {
-    const { selectedAccounts, emailtemplateid, templatename, emailsubject, emailbody } = req.body;
+    const { selectedAccounts, emailtemplateid, notificationemail, emailsubject, emailbody } = req.body;
     if (!emailtemplateid || !selectedAccounts) {
         return res.status(400).json({ status: 400, message: "Please provide all data." });
     }
@@ -62,23 +62,23 @@ router.post("/sendBulkEmails", async (req, res) => {
     try {
         let totalEmails = 0;
         let emailsSent = 0;
-        const missingContacts = []; // Array to store missing contact IDs
+        let missingContacts = [];
 
         for (const accountId of selectedAccounts) {
             const account = await Account.findById(accountId);
             const contacts = account.contacts;
 
-            totalEmails += contacts.length;
+            totalEmails = selectedAccounts.length;
 
             for (const contactId of contacts) {
                 const contact = await Contact.findById(contactId);
 
                 if (!contact) {
-                    // console.log(`Contact with ID ${contactId} not found, skipping...`);
-                    missingContacts.push(contactId); // Add missing contact ID to the array
+                    console.log(`Contact not found: ${contactId}`);
+                    missingContacts.push(account.accountName); // Store missing contact ID
                     continue; // Skip to the next contact if not found
                 }
-                
+
                 if (contact.emailSync === "true") {
                     // Function to replace placeholders with actual data
                     const replacePlaceholders = (template, data) => {
@@ -130,7 +130,7 @@ router.post("/sendBulkEmails", async (req, res) => {
                     // Replace placeholders in the emailsubject
                     const mailSubject = replacePlaceholders(emailsubject, {
                         ACCOUNT_NAME: account.accountName,
-                        FIRST_NAME: account.accountName,
+                        FIRST_NAME: contact.firstName,
                         MIDDLE_NAME: contact.middleName,
                         LAST_NAME: contact.lastName,
                         CONTACT_NAME: contact.contactName,
@@ -238,13 +238,15 @@ router.post("/sendBulkEmails", async (req, res) => {
                                 // Send notification email after all bulk emails are sent
                                 const notificationMailOptions = {
                                     from: "rohitkumbhar7009@gmail.com",
-                                    to: "dipeeka.pote52@gmail.com",
+                                    to: notificationemail,
                                     subject: "Bulk Email Sending Complete",
                                     text: "All bulk emails have been sent successfully.",
                                     html: `<p>All bulk emails have been sent successfully.</p>`,
                                 };
                                 await transporter.sendMail(notificationMailOptions);
+                                console.log("Email sent:", info.response);
                             }
+
                         } catch (error) {
                             console.error("Error sending email:", error);
                             throw error; // Throw error to trigger retry mechanism
@@ -270,13 +272,30 @@ router.post("/sendBulkEmails", async (req, res) => {
             }
         }
 
-            // Send final response with the missing contacts information
-            res.status(200).json({ 
-                status: 200, 
-                message: "Bulk emails sent successfully.", 
-                missingContacts: missingContacts.length > 0 ? missingContacts : null 
-            });
+        // Create transporter with Outlook service and authentication
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: "rohitkumbhar7009@gmail.com",
+                pass: "vwjz zrbe rwbe dhnj",
+            },
+        });
+        console.log(missingContacts.length)
+        // Check if there are missing contacts
+        if (missingContacts.length > 0) {
+            // Send notification email after all bulk emails are sent
+            const notificationMailOptions = {
+                from: "rohitkumbhar7009@gmail.com",
+                to: notificationemail,
+                subject: "Bulk Email Sending Complete with Exception.",
+                text: `All bulk emails have been sent successfully.`,
+                html: `<p>All bulk emails have been sent successfully, , Except ${missingContacts}</p>`,
+            };
 
+            await transporter.sendMail(notificationMailOptions);
+     
+        }
+        res.status(200).json({ status: 200, message: "Bulk emails sent successfully." });
     } catch (error) {
         console.error("Error sending bulk emails:", error);
         res.status(500).json({ status: 500, error: "Internal server error." });

@@ -39,7 +39,6 @@ const jobTemplateSchema = new mongoose.Schema({
     },
     startsinduration: {
         type: String,
-        enum: ['Days', 'Months', 'Years'],
         required: function () {
             return !this.absolutedates;
         }
@@ -53,7 +52,6 @@ const jobTemplateSchema = new mongoose.Schema({
     },
     dueinduration: {
         type: String,
-        enum: ['Days', 'Months', 'Years'],
         required: function () {
             return !this.absolutedates;
         }

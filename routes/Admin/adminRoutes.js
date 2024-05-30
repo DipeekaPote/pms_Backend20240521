@@ -5,6 +5,7 @@ const { createAdmin, getAdmins, getAdmin, deleteAdmin, updateAdmin, updatePasswo
 const { createAccount, getAccount, getAccounts, updateAccount, deleteAccount, getAccountsList, getAccountsListById } = require('../../controllers/Admin/accountDetailsController')
 const { createTeamMember, getTeamMembers, getTeamMember, deleteTeamMember, updateTeamMember, getTeamMemberList, updateTeamMemberPassword } = require('../../controllers/Admin/teamMemberController')
 const { getClients, getClient, createClient, deleteClient, updateClient, getClientByEmail, updateclientPassword } = require('../../controllers/Admin/clientSignupController')
+const { createNotification, getNotifications, getNotification, deleteNotification, updateNotification, getNotificationbyUser } = require('../../controllers/Admin/adminNotificationController')
 
 //*******************ADMIN SIGNUP START********************* */
 router.get('/adminsignup', getAdmins)
@@ -50,6 +51,18 @@ router.get('/clientsignup/clientbyemail', getClientByEmail)
 router.patch('/clientsignup/updateclientPassword', updateclientPassword)
 
 //******client SIGNUP END******** */
+
+//******Notification  START******** */
+router.get('/notification', getNotifications)
+router.get('/notification/:id', getNotification)
+router.post('/notification', createNotification)
+router.delete('/notification/:id', deleteNotification)
+router.patch('/notification/:id', updateNotification)
+router.get('/notification/notificationbyuser/:userid', getNotificationbyUser)
+
+//******Notification END******** */
+
+
 
 module.exports = router
 

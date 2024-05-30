@@ -6,21 +6,18 @@ const nodemailer = require("nodemailer");
 const secretKey = process.env.TOKEN_KEY;
 const Account = require('../../models/Admin/accountDetailsModel.js');
 const Contact = require('../../models/Common/contactModel.js');
-const EmailTemplate = require('../../models/Workflow/emailTemplate.js');
-const { ConnectionStates } = require("mongoose");
 
-router.post("/templatemailsend", async (req, res) => {
+router.post("/templatChatEmailsend", async (req, res) => {
 
-    const { email, emailtemplateid, accountid, emailbody, emailsubject } = req.body;
+    const { email, chattemplateid, accountid, emailbody, emailsubject } = req.body;
 
-    if (!email || !emailtemplateid || !accountid) {
+    if (!email || !chattemplateid || !accountid) {
         res.status(400).json({ status: 400, message: "Please provide all data." })
     }
 
     const account = await Account.findById(accountid);
 
     const contacts = account.contacts;
-    
     const contact = await Contact.findById(contacts);
     // Function to replace placeholders with actual data
     const replacePlaceholders = (template, data) => {

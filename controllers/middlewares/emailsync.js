@@ -3,34 +3,7 @@ const express = require('express');
 const passport = require('passport');
 
 const router = express.Router();
-// const bodyParser = require('body-parser');
-// const cors =require("cors")
-// const app = express();
-// const PORT = 5000;
 
-// const session = require('express-session');
-
-// app.use(
-//   session({
-//     secret: 'mnbvcxzlkjhgfdsapoiuytrewq', // A unique secret key
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
-
-// app.use(bodyParser.json()); // Parse JSON bodies
-// app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
-
-// // Alternatively, you can use the built-in middleware
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-
-// app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(cors({ origin: 'http://localhost:3000', credentials: true })); 
-// Google OAuth routes
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/gmail.readonly'] }));
 
 router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {

@@ -133,6 +133,7 @@ const getJobList = async (req, res) => {
         for (const job of jobs) {
             // Fetching the pipeline document for each job
             const pipeline = await Pipeline.findById(job.pipeline);
+            
 
             if (!pipeline) {
                 // If pipeline is not found, skip this job
@@ -170,13 +171,15 @@ const getJobList = async (req, res) => {
                 Account: accountsname,
                 StartDate: job.startdate,
                 DueDate: job.enddate,
+                Priority: job.priority,
+                Description: job.description,
                 StartsIn: job.startsin ? `${job.startsin} ${job.startsinduration}` : null,
-                DueIn: job.duein ? `${job.duein} ${job.dueinduration}` : null,
+                DueIn: jobs.duein ? `${jobs.duein} ${jobs.dueinduration}` : null,     
                 createdAt: job.createdAt,
                 updatedAt: job.updatedAt,
             });
         }
-
+       
         res.status(200).json({ message: "JobTemplate retrieved successfully", jobList });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -188,25 +191,24 @@ const getJobListbyid = async (req, res) => {
     const { id } = req.params;
     try {
         const jobs = await Job.findById(id)
-            // .populate({ path: 'accounts', model: 'account' })
-            .populate({
+              .populate({
                 path: 'accounts',
                 model: 'account',
                 populate: {
-                    path: 'tags', // Assuming 'tags' is the field containing tag details within the 'account' model
-                    model: 'tag' // Assuming 'Tag' is the model for tags
+                    path: 'tags', 
+                    model: 'tag' 
                 }
             })
             .populate({ path: 'pipeline', model: 'pipeline', populate: { path: 'stages', model: 'stage' } })
             .populate({ path: 'jobassignees', model: 'User' });
 
-        // Fetching the pipeline document for each job
+       
         const pipeline = await Pipeline.findById(jobs.pipeline);
 
         let stageNames = null;
 
         if (Array.isArray(jobs.stageid)) {
-            // Iterate over each stage ID and find the corresponding stage name
+            
             stageNames = [];
             for (const stageId of jobs.stageid) {
                 const matchedStage = pipeline.stages.find(stage => stage._id.equals(stageId));
@@ -215,7 +217,7 @@ const getJobListbyid = async (req, res) => {
                 }
             }
         } else {
-            // If job.stageid is not an array, convert it to an array containing a single element
+           
             const matchedStage = pipeline.stages.find(stage => stage._id.equals(jobs.stageid));
             if (matchedStage) {
                 stageNames = [{ name: matchedStage.name, _id: matchedStage._id }];
@@ -226,9 +228,8 @@ const getJobListbyid = async (req, res) => {
             id: jobs._id,
             Name: jobs.jobname,
             JobAssignee: jobs.jobassignees,
-            // Pipeline: pipeline ? pipeline.pipelineName : null,
             Pipeline: {
-                _id: pipeline._id, // Include the _id of the pipeline
+                _id: pipeline._id, 
                 Name: pipeline.pipelineName
             },
             Stage: stageNames,
@@ -251,6 +252,34 @@ const getJobListbyid = async (req, res) => {
     }
 };
 
+
+
+const updatestgeidtojob = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: "Invalid Job ID" });
+    }
+
+    try {
+        const updatedJob = await Job.findOneAndUpdate(
+            { _id: id },
+            { ...req.body },
+            { new: true }
+        );
+
+        if (!updatedJob) {
+            return res.status(404).json({ error: "No such Job" });
+        }
+
+        res.status(200).json({ message: "Stage Id Updated successfully", updatedJob });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+};
+
+
+
 module.exports = {
     createJob,
     getJobs,
@@ -258,5 +287,6 @@ module.exports = {
     deleteJob,
     updateJob,
     getJobList,
-    getJobListbyid
+    getJobListbyid,
+    updatestgeidtojob,
 }

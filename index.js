@@ -137,7 +137,7 @@ passport.use(
 
 //!Email sync Routes
 const emailsync = require("../pmsbackend/controllers/middlewares/emailsync");
-app.use("/emailsync", emailsync);
+app.use("/", emailsync);
 
 //folder template 
 app.get("/allFolders/:id", async (req, res) => {

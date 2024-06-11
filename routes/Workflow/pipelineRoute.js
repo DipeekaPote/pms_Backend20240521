@@ -3,14 +3,15 @@ const router = express.Router()
 
 const { getPipelines, getPipeline, createPipeline, updatePipeline, deletePipeline, getPipelineTemplateList} = require('../../controllers/Workflow/pipelineTemplateController')
 const { createJobTemplate, getJobTemplate, getJobTemplates, deleteJobTemplate, updateJobTemplate, getJobTemplateList} = require('../../controllers/Workflow/jobTemplateController')
-const { createJob, getJobs, getJob, deleteJob, updateJob, getJobList, getJobListbyid} = require('../../controllers/Workflow/jobController')
+const { createJob, getJobs, getJob, deleteJob, updateJob, getJobList, getJobListbyid, updatestgeidtojob} = require('../../controllers/Workflow/jobController')
 const pipelinedata= require('../../controllers/Workflow/boardsDataController'); // Assuming 'boardsData.js' is where you defined your 'boardsDataSchema'
 const { getEmailTemplates,createEmailTemplate,getEmailTemplate,deleteEmailTemplate, updateEmailTemplate,getEmailTemplateList } = require('../../controllers/Workflow/emailTemplateController')
 const { getChatTemplates, getChatTemplate, getChatTemplateList, createChatTemplate, deleteChatTemplate, updateChatTemplate } = require('../../controllers/Workflow/chatTemplateController')
 const { getInvoiceTemplates, getInvoiceTemplate, createInvoiceTemplate, deleteInvoiceTemplate, updateInvoiceTemplate } = require('../../controllers/Workflow/invoiceTemplateController')
 const { getCategorys, getCategory, createCategory, deleteCategory, updateCategory } = require('../../controllers/Workflow/categoryController')
 const { getServiceTemplates, getServiceTemplate, createServiceTemplate, deleteServiceTemplate, updateServiceTemplate, getServiceTemplateById } = require('../../controllers/Workflow/serviceTemplateController')
-const { getInvoices, getInvoice, createInvoice, deleteInvoice, updateInvoice } = require('../../controllers/Workflow/invoiceController')
+const { getInvoices, getInvoice, createInvoice, deleteInvoice, updateInvoice, getInvoiceList, getInvoiceListbyid } = require('../../controllers/Workflow/invoiceController')
+const { getOrganizerTemplate, getOrganizerTemplates, createOrganizerTemplate } = require('../../controllers/Workflow/organizerTempController')
 
 
 //*******************Pipeline START********************* */
@@ -34,6 +35,7 @@ router.delete('/job/:id', deleteJob)
 router.patch('/job/:id', updateJob)
 router.get('/job/joblist/list', getJobList)
 router.get('/job/joblist/listbyid/:id', getJobListbyid)
+router.post('/job/jobpipeline/updatestageid/:id', updatestgeidtojob)
 
 //*******************job END********************* */
 
@@ -46,6 +48,7 @@ router.post('/jobtemplate', createJobTemplate)
 router.delete('/jobtemplate/:id', deleteJobTemplate)
 router.patch('/jobtemplate/:id', updateJobTemplate)
 router.get('/jobtemplate/jobtemplatelist/:id', getJobTemplateList)
+
 
 //*******************jobtemplate END********************* */y
 
@@ -103,13 +106,23 @@ router.get('/servicetemplate/servicetemplatebyid/:id', getServiceTemplateById)
 
 //******Invoice START******** */
 
-
-//******Invoice END******** */
-
 router.get('/invoice', getInvoices)
 router.get('/invoice/:id', getInvoice)
 router.post('/invoice', createInvoice)
 router.delete('/invoice/:id', deleteInvoice)
 router.patch('/invoice/:id', updateInvoice)
+router.get('/invoice/invoicelist', getInvoiceList)
+router.get('/invoice/invoicelist/invoicelistbyid/:id', getInvoiceListbyid)
+
+//******Invoice END******** */
+
+//******organizertemplate Start******** */
+
+router.get('/organizertemplate', getOrganizerTemplates)
+router.get('/organizertemplate/:id', getOrganizerTemplate)
+router.post('/organizertemplate', createOrganizerTemplate)
+
+//******organizertemplate END******** */
+
 
 module.exports = router

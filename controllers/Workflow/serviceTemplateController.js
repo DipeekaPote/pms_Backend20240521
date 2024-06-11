@@ -109,7 +109,7 @@ const getServiceTemplateById = async (req, res) => {
     try {
         const serviceTemplate = await ServiceTemplate.findById(id)
          .populate({ path: 'category', model: 'Category' });
-                  console.log(serviceTemplate)
+                 
         if (!serviceTemplate) {
             return res.status(404).json({ error: "No such ServiceTemplate" });
         }

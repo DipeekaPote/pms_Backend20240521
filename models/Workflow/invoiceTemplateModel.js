@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const lineItemsSchema = new mongoose.Schema({
     productorService: {
         type: String,
-        required: [true, 'Notification description is required'], // Validation for required notification description
+        // required: [true, 'Product or Service  is required'], // Validation for required notification description
     },
     description: {
         type: String,

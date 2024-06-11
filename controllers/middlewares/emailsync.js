@@ -44,10 +44,6 @@ router.get('/logout', (req, res) => {
 });
 
 
-
-
-
-
 const { google } = require('googleapis');
 
 router.get('/emails', async (req, res) => {

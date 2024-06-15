@@ -1,9 +1,18 @@
 
 const mongoose = require('mongoose');
 
-const fieldSchema = new mongoose.Schema({
-  label: { type: String, required: true },
-  type: { type: String, required: true },
+
+const QuestionSchema = new mongoose.Schema({
+  type: String,
+  placeholder: String,
+  label: String,
+  value: String,
+  sectionid: String,
+});
+
+const SectionSchema = new mongoose.Schema({
+  sectionname: String,
+  questions: [QuestionSchema],
 });
 
 const organizerSchema = new mongoose.Schema({
@@ -20,9 +29,7 @@ const organizerSchema = new mongoose.Schema({
     trim: true
   },
 
-  title: String,
-
-  fields: [fieldSchema],
+  sections: [SectionSchema],
 
   active: {
     type: Boolean,

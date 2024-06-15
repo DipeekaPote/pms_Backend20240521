@@ -12,6 +12,7 @@ const { getCategorys, getCategory, createCategory, deleteCategory, updateCategor
 const { getServiceTemplates, getServiceTemplate, createServiceTemplate, deleteServiceTemplate, updateServiceTemplate, getServiceTemplateById } = require('../../controllers/Workflow/serviceTemplateController')
 const { getInvoices, getInvoice, createInvoice, deleteInvoice, updateInvoice, getInvoiceList, getInvoiceListbyid } = require('../../controllers/Workflow/invoiceController')
 const { getOrganizerTemplate, getOrganizerTemplates, createOrganizerTemplate } = require('../../controllers/Workflow/organizerTempController')
+const { getTaskTemplates, getTaskTemplate, createTaskTemplate, deleteTaskTemplate, updateTaskTemplate } = require('../../controllers/Workflow/taskTemplateController')
 
 
 //*******************Pipeline START********************* */
@@ -124,5 +125,15 @@ router.post('/organizertemplate', createOrganizerTemplate)
 
 //******organizertemplate END******** */
 
+
+//*******************Task  Template START********************* */
+
+router.get('/tasktemplate', getTaskTemplates)
+router.get('/tasktemplate/:id', getTaskTemplate)
+router.post('/tasktemplate', createTaskTemplate)
+router.delete('/tasktemplate/:id', deleteTaskTemplate)
+router.patch('/tasktemplate/:id', updateTaskTemplate)
+
+//*******************Task template END********************* */
 
 module.exports = router

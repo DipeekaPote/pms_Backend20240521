@@ -27,7 +27,7 @@ const getOrganizerTemplate = async (req, res) => {
 //POST a new OrganizerTemplate 
 const createOrganizerTemplate = async (req, res) => {
     try {
-        const { title, fields, active } = req.body;
+        const { templatename, organizerName, sections, active } = req.body;
         try {
             // Check if a task template with similar properties already exists
             const existingTemplate = await OrganizerTemplate.findOne({ templatename });
@@ -36,7 +36,7 @@ const createOrganizerTemplate = async (req, res) => {
                 return res.status(400).json({ error: "Organizer Template already exists" });
             }
             // If no existing template is found, create a new one
-            const newOrganizerTemplate = await OrganizerTemplate.create({ title, fields, active });
+            const newOrganizerTemplate = await OrganizerTemplate.create({ templatename, organizerName, sections, active });
 
             return res.status(201).json({ message: "Organizer Template created successfully", newOrganizerTemplate });
         } catch (error) {

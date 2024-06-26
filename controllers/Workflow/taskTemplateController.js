@@ -115,14 +115,15 @@ const getTaskTemplateList = async (req, res) => {
     }
 
     try {
-        const TaskTemplate = await TaskTemplate.findById(id)
-         .populate({ path: 'jobassignees', model: 'User' });
+        const taskTemplate = await TaskTemplate.findById(id)
+         .populate({ path: 'taskassignees', model: 'User' })
+         .populate({ path: 'tags', model: 'tag' });
                   
-        if (!TaskTemplate) {
+        if (!taskTemplate) {
             return res.status(404).json({ error: "No such TaskTemplate" });
         }
 
-        res.status(200).json({ message: "TaskTemplate retrieved successfully", TaskTemplate });
+        res.status(200).json({ message: "TaskTemplate retrieved successfully", taskTemplate });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -135,5 +136,5 @@ module.exports = {
     getTaskTemplates,
     deleteTaskTemplate,
     updateTaskTemplate,
-    // getTaskTemplateList
+    getTaskTemplateList
 }

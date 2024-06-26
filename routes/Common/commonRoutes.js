@@ -8,7 +8,7 @@ const { createRole, getRoles, getRole, deleteRole, updateRole } = require('../..
 const { createTag, getTag, getTags, deleteTag, updateTag } = require('../../controllers/Common/tagController')
 const { createAccessRight, getAccessRight, getAccessRights, deleteAccessRight, updateAccessRight } = require('../../controllers/Common/accessRightsController')
 const { createContact, getContact, getContacts, deleteContact, updateContact, getContactsList } = require('../../controllers/Common/contactController')
-const { createUser, getUsers, getUser, deleteUser, updateUser, adminSignup, getUserByEmail, updateUserPassword, updateLoginStatus, getUserListbyId , getUsersByRoles} = require("../../controllers/Common/userController");
+const { createUser, getUsers, getUser, deleteUser, updateUser, adminSignup, getUserByEmail, updateUserPassword, updateLoginStatus, getUserListbyId , getUsersByRoles, getVerifyUserbyPassword} = require("../../controllers/Common/userController");
 const { validateToken, logout, cleanupBlacklist } = require("../../controllers/middlewares/authJwt");
 const { generatetoken } = require("../../controllers/Common/loginController");
 const { adminLogin } = require("../../controllers/Common/loginController");
@@ -46,7 +46,8 @@ router.get('/resetpassword/verifytoken', validateToken, (req, res) => {
 router.patch("/user/password/updateuserpassword/", updateUserPassword);
 router.get("/user/userlist/list/:id", getUserListbyId);
 router.get('/users/roles', getUsersByRoles);
-
+// router.post("/user/verifyuser/verifybyemail/verifybypassword", getVerifyUserbyPassword)
+router.post("/user/verifyuserandpassword/", getVerifyUserbyPassword);
 
 //*******************USER END********************* */
 

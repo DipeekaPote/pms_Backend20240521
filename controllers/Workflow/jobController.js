@@ -141,7 +141,10 @@ const getJobList = async (req, res) => {
             }
 
             const jobAssigneeNames = job.jobassignees.map(assignee => assignee.username);
-            const accountsname = job.accounts.map(account => account.accountName);
+
+             const accountsname = job.accounts.map(account => account.accountName);
+             const accountId = job.accounts.map(account => account._id);
+           
 
             let stageNames = null;
 
@@ -169,6 +172,8 @@ const getJobList = async (req, res) => {
                 Pipeline: pipeline ? pipeline.pipelineName : null,
                 Stage: stageNames,
                 Account: accountsname,
+                AccountId: accountId,
+
                 StartDate: job.startdate,
                 DueDate: job.enddate,
                 Priority: job.priority,

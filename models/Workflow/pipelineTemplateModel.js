@@ -5,21 +5,39 @@ const stageSchema = new mongoose.Schema({
     type: String,
     required: [true, "Stage name is required"],
   },
-  conditions: {
-    type: String, // This can be of any type depending on your specific requirements
-  },
-  automations: [{
+
+  conditions: [{
     type: Array,
-     type: mongoose.Schema.Types.ObjectId, ref: 'Automations',
-     
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'tag',
   }],
+
+  automations: [{
+    automationId: {
+      type: mongoose.Schema.Types.ObjectId, ref: 'Automations',
+    },
+
+    conditions: [{
+      type: Array,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'tag',
+    }],
+
+    templates: {
+      templateName: {
+        type: String,
+      },
+      templateId: {
+        type: mongoose.Schema.Types.ObjectId,
+      },
+    },
+
+  }],
+
   automove: {
     type: Boolean,
   }
 });
-
-
-
 
 const pipelineSchema = new mongoose.Schema(
   {

@@ -2,18 +2,31 @@
 const mongoose = require('mongoose');
 
 
-const QuestionSchema = new mongoose.Schema({
-  type: String,
-  placeholder: String,
-  label: String,
-  value: String,
-  sectionid: String,
+// Define the form element schema
+const formElementSchema = new mongoose.Schema({
+  type: { type: String, required: true },
+  id: { type: Number, required: true },
+  sectionid: { type: Number, required: true },
+  options: [
+    {
+      id: { type: Number, required: true },
+      text: { type: String, required: true }
+    }
+  ],
+  text: { type: String }
+
 });
 
+
+
 const SectionSchema = new mongoose.Schema({
-  sectionname: String,
-  questions: [QuestionSchema],
+  id: { type: String },
+  name: { type: String },
+  text: { type: String },
+  formElements : [formElementSchema],
 });
+
+
 
 const organizerSchema = new mongoose.Schema({
 
@@ -38,5 +51,5 @@ const organizerSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 
-const OrganizerTemplate = mongoose.model('Organizer', organizerSchema);
+const OrganizerTemplate = mongoose.model('OrganizerTemplate', organizerSchema);
 module.exports = OrganizerTemplate;

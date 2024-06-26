@@ -131,7 +131,6 @@ const updateUserPassword = async (req, res) => {
 
 const getUserByEmail = async (req, res) => {
   const { email } = req.params;
-
   try {
     // Find the User by email
     const user = await User.find({ email });
@@ -218,5 +217,32 @@ const getUsersByRoles = async (req, res) => {
 };
 
 
+const getVerifyUserbyPassword = async (req, res) => {
+ 
+  const { email, password } = req.body;
+
+  try {
+    // Find the User by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: "No such User" });
+    }
+
+    // Check if the password is correct
+    const isPasswordValid = bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
+
+    res.status(200).json({ message: "User verified successfully", user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
 module.exports = { createUser, getUsers, getUser, deleteUser, updateUser, adminSignup, updateUserPassword, 
-  getUserByEmail, updateLoginStatus, getUserListbyId, getUsersByRoles };
+  getUserByEmail, updateLoginStatus, getUserListbyId, getUsersByRoles, getVerifyUserbyPassword };

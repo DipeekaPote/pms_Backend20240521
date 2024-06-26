@@ -68,6 +68,141 @@ const createStaticOrganizer = async (req, res) => {
     SelectallFormsThatApplyForYou,
     SelectFormsThatApplyForYou,
     SelectallthatApplicable,
+
+
+    CryptoQuantity ,
+
+   OwnahomeSelectAllthatApplicable,
+
+   
+    IRAContributionsDistributionsSelectallthatapplicable,
+    AmountTransferredFromIRAtoRothIRA,
+    UploadIRAContributiondocuments,
+    WithdrawMoneyFroYourIRAAccount,
+
+    
+    HybridCarPurchaseSolarInstallationSelectThatApplicable,
+    UploadHybridCarorSolarinstallationrelatedDocuments,
+  
+    DayCareExpenses1ChildName,
+    TotalDaycareExpenses1,
+    DaycareProviderInformation1,
+    UploadDaycareExpenseReceipts1,
+
+   
+    DayCareExpenses2ChildName,
+    TotalDaycareExpenses2,
+    DaycareProviderInformation2,
+    UploadDaycareExpenseReceipts2,
+
+ 
+
+    DayCareExpenses3ChildName,
+    TotalDaycareExpenses3,
+    DaycareProviderInformation3,
+    UploadDaycareExpenseReceipts3,
+    
+    NewFamilymemberadded1,
+    UploadNewFamilymemberrelatedDocuments1,
+
+    
+    NewFamilymemberadded2,
+    UploadNewFamilymemberrelatedDocuments2,
+
+    
+    PropertySale1,
+    PropertySale1SelectThatApplicable,
+    ForeignCountryPropertyPleaseListThePurchaseDatePriceSaleDatePriceTaxesExpenses,
+    UploadPropertySaleRelatedDocuments,
+    IsThisYourPRIMARYHome,
+    Howlongyouhavestayedinthishomeduringthelast5years,
+    ShareanyadditionaldetailsaboutthisPropertySale,
+
+ 
+    RentalIncome,
+    RentalExpenses,
+
+   
+    DoyouwantmetofileFBARFATCA,
+    ProvideTheMaximumBalance,
+
+ 
+    EducationRelatedExpensesSelectallthatareapplicable,
+    For1099TSpecifyWhetherStudentIsDoingGraduationOrUnderGraduationwhichYear,
+
+    ITINApplicantName,
+    SelectITINService,
+    FirstEntryDatetoTheUS,
+    BirthPlace,
+    RequiredDocuments,
+
+
+    BusinessName,
+    BusinessAddress,
+    WhatIsTheMainActivityofThisBusiness,
+    WhatIsTheEIN,
+    WhoOwnsTheBusiness,
+    BusinessStructure,
+  
+
+    GrossReceiptsOrSales,
+    ReturnsAndAllowances,
+    OtherIncome,
+
+   
+    InventoryAtBeginningOfTheYear,
+    CostOfItemsForPersonalUse,
+    CostOfLabor,
+    MaterialsAndSupplies,
+    OtherCostOfGoodsSold,
+    InventoryAtEndOfTheYear,
+
+    CarExpensesInThisYear,
+    WhenDidYouPlaceYourVehicleServiceForBusinessPurposes,
+    NumberOfMilesUsedOverYearForBusiness,
+    IsYourOfficeBasedOutOfYourHome,
+    TotalAreaOfTheHouse,
+    AreaBusinessPortion,
+    Accounting,
+    Advertising,
+    BankCharges,
+    BusinessLicenses,
+    Commissions,
+    ContractLabor,
+    DeliveryandFreight,
+    DuesandSubscriptions,
+    EmployeeBenefitPrograms,
+    Insurance,
+    MortgageInterest,
+    OtherInterest,
+    Janitorial,
+    LaundryCleaning,
+    LegalAndProfessional,
+    Miscellaneous,
+    OfficeExpense,
+    OutsideServices,
+    ParkingAndTolls,
+    Postage,
+    Printing,
+    RentOther,
+    RentBuildings,
+    Repairs,
+    Security,
+    Supplies,
+    TaxesRealEstate,
+    TaxesPayroll,
+    TaxesSalesTaxInGrossReceipts,
+    TaxesOther,
+    Telephone,
+    Tools,
+    Travel,
+    MealsAndEntertainmentInFull,
+    Uniforms,
+    Wages,
+    OtherExpenses,
+
+
+
     SalesTax,
     GIFT ,
     OtherTaxRelatedDocuments,
@@ -78,14 +213,6 @@ const createStaticOrganizer = async (req, res) => {
 
     try {
         // Check if a task template with similar properties already exists
-
-        const existingStaticOrganizer = await StaticOrganizer.findOne({
-            account
-        });
-
-        if (existingStaticOrganizer) {
-            return res.status(400).json({ error: "Static Organizer already exists" });
-        }
 
             const newStaticOrganizer = await StaticOrganizer.create({
                 account,
@@ -118,7 +245,138 @@ const createStaticOrganizer = async (req, res) => {
                 SelectallFormsThatApplyForYou,
                 SelectFormsThatApplyForYou,
                 SelectallthatApplicable,
-                SalesTax,
+
+                CryptoQuantity ,
+
+                OwnahomeSelectAllthatApplicable,
+             
+                
+                 IRAContributionsDistributionsSelectallthatapplicable,
+                 AmountTransferredFromIRAtoRothIRA,
+                 UploadIRAContributiondocuments,
+                 WithdrawMoneyFroYourIRAAccount,
+             
+                 
+                 HybridCarPurchaseSolarInstallationSelectThatApplicable,
+                 UploadHybridCarorSolarinstallationrelatedDocuments,
+               
+                 DayCareExpenses1ChildName,
+                 TotalDaycareExpenses1,
+                 DaycareProviderInformation1,
+                 UploadDaycareExpenseReceipts1,
+             
+                
+                 DayCareExpenses2ChildName,
+                 TotalDaycareExpenses2,
+                 DaycareProviderInformation2,
+                 UploadDaycareExpenseReceipts2,
+             
+              
+             
+                 DayCareExpenses3ChildName,
+                 TotalDaycareExpenses3,
+                 DaycareProviderInformation3,
+                 UploadDaycareExpenseReceipts3,
+                 
+                 NewFamilymemberadded1,
+                 UploadNewFamilymemberrelatedDocuments1,
+             
+                 
+                 NewFamilymemberadded2,
+                 UploadNewFamilymemberrelatedDocuments2,
+             
+                 
+                 PropertySale1,
+                 PropertySale1SelectThatApplicable,
+                 ForeignCountryPropertyPleaseListThePurchaseDatePriceSaleDatePriceTaxesExpenses,
+                 UploadPropertySaleRelatedDocuments,
+                 IsThisYourPRIMARYHome,
+                 Howlongyouhavestayedinthishomeduringthelast5years,
+                 ShareanyadditionaldetailsaboutthisPropertySale,
+             
+              
+                 RentalIncome,
+                 RentalExpenses,
+             
+                
+                 DoyouwantmetofileFBARFATCA,
+                 ProvideTheMaximumBalance,
+             
+              
+                 EducationRelatedExpensesSelectallthatareapplicable,
+                 For1099TSpecifyWhetherStudentIsDoingGraduationOrUnderGraduationwhichYear,
+             
+                 ITINApplicantName,
+                 SelectITINService,
+                 FirstEntryDatetoTheUS,
+                 BirthPlace,
+                 RequiredDocuments,
+             
+             
+                 BusinessName,
+                 BusinessAddress,
+                 WhatIsTheMainActivityofThisBusiness,
+                 WhatIsTheEIN,
+                 WhoOwnsTheBusiness,
+                 BusinessStructure,
+               
+             
+                 GrossReceiptsOrSales,
+                 ReturnsAndAllowances,
+                 OtherIncome,
+             
+                
+                 InventoryAtBeginningOfTheYear,
+                 CostOfItemsForPersonalUse,
+                 CostOfLabor,
+                 MaterialsAndSupplies,
+                 OtherCostOfGoodsSold,
+                 InventoryAtEndOfTheYear,
+             
+                 CarExpensesInThisYear,
+                 WhenDidYouPlaceYourVehicleServiceForBusinessPurposes,
+                 NumberOfMilesUsedOverYearForBusiness,
+                 IsYourOfficeBasedOutOfYourHome,
+                 TotalAreaOfTheHouse,
+                 AreaBusinessPortion,
+                 Accounting,
+                 Advertising,
+                 BankCharges,
+                 BusinessLicenses,
+                 Commissions,
+                 ContractLabor,
+                 DeliveryandFreight,
+                 DuesandSubscriptions,
+                 EmployeeBenefitPrograms,
+                 Insurance,
+                 MortgageInterest,
+                 OtherInterest,
+                 Janitorial,
+                 LaundryCleaning,
+                 LegalAndProfessional,
+                 Miscellaneous,
+                 OfficeExpense,
+                 OutsideServices,
+                 ParkingAndTolls,
+                 Postage,
+                 Printing,
+                 RentOther,
+                 RentBuildings,
+                 Repairs,
+                 Security,
+                 Supplies,
+                 TaxesRealEstate,
+                 TaxesPayroll,
+                 TaxesSalesTaxInGrossReceipts,
+                 TaxesOther,
+                 Telephone,
+                 Tools,
+                 Travel,
+                 MealsAndEntertainmentInFull,
+                 Uniforms,
+                 Wages,
+                 OtherExpenses,
+                 SalesTax,
                 GIFT ,
                 OtherTaxRelatedDocuments,
                 AlimonyAmount ,

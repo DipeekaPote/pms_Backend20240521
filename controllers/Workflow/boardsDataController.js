@@ -34,7 +34,13 @@ const pipelinedata = async (req, res) => {
             title: stage.name,
             cards: stageJobs.map(job => ({
                 _id: job._id,
-                accounts: job.accounts.map(account => account.accountName), 
+
+                // accounts: job.accounts.map(account => account.accountName), 
+                accounts: job.accounts.map(account => ({
+                    _id: account._id,
+                    accountName: account.accountName
+                })),
+
                 stageid: stage,
                 templatename: job.templatename,
                 jobname: job.jobname,

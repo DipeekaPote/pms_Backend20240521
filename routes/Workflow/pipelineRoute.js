@@ -11,8 +11,10 @@ const { getInvoiceTemplates, getInvoiceTemplate, createInvoiceTemplate, deleteIn
 const { getCategorys, getCategory, createCategory, deleteCategory, updateCategory } = require('../../controllers/Workflow/categoryController')
 const { getServiceTemplates, getServiceTemplate, createServiceTemplate, deleteServiceTemplate, updateServiceTemplate, getServiceTemplateById } = require('../../controllers/Workflow/serviceTemplateController')
 const { getInvoices, getInvoice, createInvoice, deleteInvoice, updateInvoice, getInvoiceList, getInvoiceListbyid } = require('../../controllers/Workflow/invoiceController')
-const { getOrganizerTemplate, getOrganizerTemplates, createOrganizerTemplate } = require('../../controllers/Workflow/organizerTempController')
-const { getTaskTemplates, getTaskTemplate, createTaskTemplate, deleteTaskTemplate, updateTaskTemplate } = require('../../controllers/Workflow/taskTemplateController')
+const { getOrganizerTemplate, getOrganizerTemplates, createOrganizerTemplate, deleteOrganizerTemplate, updateOrganizerTemplate } = require('../../controllers/Workflow/organizerTempController')
+const { getTaskTemplates, getTaskTemplate, createTaskTemplate, deleteTaskTemplate, updateTaskTemplate, getTaskTemplateList } = require('../../controllers/Workflow/taskTemplateController')
+const { getStaticOrganizer, getStaticOrganizers, createStaticOrganizer } = require('../../controllers/Workflow/1040staticorganizerController')
+const { getOrganizerAccountWise, getOrganizerAccountWises, createOrganizerAccountWise, deleteOrganizerAccountWise, getOrganizerByAccountId, updateOrganizerAccountWise } = require('../../controllers/Workflow/organizerAccountWiseController')
 
 
 //*******************Pipeline START********************* */
@@ -122,6 +124,8 @@ router.get('/invoice/invoicelist/invoicelistbyid/:id', getInvoiceListbyid)
 router.get('/organizertemplate', getOrganizerTemplates)
 router.get('/organizertemplate/:id', getOrganizerTemplate)
 router.post('/organizertemplate', createOrganizerTemplate)
+router.delete('/organizertemplate/:id', deleteOrganizerTemplate)
+router.patch('/organizertemplate/:id', updateOrganizerTemplate)
 
 //******organizertemplate END******** */
 
@@ -133,7 +137,32 @@ router.get('/tasktemplate/:id', getTaskTemplate)
 router.post('/tasktemplate', createTaskTemplate)
 router.delete('/tasktemplate/:id', deleteTaskTemplate)
 router.patch('/tasktemplate/:id', updateTaskTemplate)
+router.get('/tasktemplate/tasktemplatebyid/:id', getTaskTemplateList)
 
 //*******************Task template END********************* */
+
+
+
+//******1040 organizer Start******** */
+
+router.get('/1040staticorganizer', getStaticOrganizers)
+router.get('/1040staticorganizer/:id', getStaticOrganizer)
+router.post('/1040staticorganizer', createStaticOrganizer)
+
+
+//******1040 organizer END******** */
+
+//******organizer Accountwise Start******** */
+
+router.get('/organizeraccountwise', getOrganizerAccountWises)
+router.get('/organizeraccountwise/:id', getOrganizerAccountWise)
+router.post('/organizeraccountwise', createOrganizerAccountWise)
+router.delete('/organizeraccountwise/:id', deleteOrganizerAccountWise)
+router.get('/organizeraccountwise/organizerbyaccount/:id', getOrganizerByAccountId)
+router.patch('/organizeraccountwise/:id', updateOrganizerAccountWise)
+
+//******organizer Accountwise ENd******** */
+
+
 
 module.exports = router

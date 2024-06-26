@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
 const automationsSchema = new mongoose.Schema({
-    
-    description: { type: String, required: true }
+
+    description: {
+        type: String,
+    }
 },
-{ timestamps: true });
+    { timestamps: true });
 
 const Automations = mongoose.model('Automations', automationsSchema);
 

@@ -174,17 +174,17 @@ const StaticOrganizerSchema = new mongoose.Schema({
         type: String,
     },
     //Section 12
-    NewFamilymemberadded1: {
+    NewFamilymemberadded1: [{
         type: String,
-    },
+    }],
     UploadNewFamilymemberrelatedDocuments1: {
         type: String,
     },
 
     //Section 13
-    NewFamilymemberadded2: {
+    NewFamilymemberadded2: [{
         type: String,
-    },
+    }],
     UploadNewFamilymemberrelatedDocuments2: {
         type: String,
     },
@@ -193,9 +193,9 @@ const StaticOrganizerSchema = new mongoose.Schema({
     PropertySale1: {
         type: String,
     },
-    PropertySale1SelectThatApplicable: {
+    PropertySale1SelectThatApplicable: [{
         type: String,
-    },
+    }],
     ForeignCountryPropertyPleaseListThePurchaseDatePriceSaleDatePriceTaxesExpenses: {
         type: String,
     },
@@ -220,9 +220,6 @@ const StaticOrganizerSchema = new mongoose.Schema({
     RentalExpenses: {
         type: String,
     },
-    RentalExpenses: {
-        type: String,
-    },
 
     //Section 16
     DoyouwantmetofileFBARFATCA: {
@@ -233,9 +230,9 @@ const StaticOrganizerSchema = new mongoose.Schema({
     },
 
     //Section 17
-    EducationRelatedExpensesSelectallthatareapplicable: {
+    EducationRelatedExpensesSelectallthatareapplicable: [{
         type: String,
-    },
+    }],
     For1099TSpecifyWhetherStudentIsDoingGraduationOrUnderGraduationwhichYear: {
         type: String,
     },
@@ -276,9 +273,7 @@ const StaticOrganizerSchema = new mongoose.Schema({
     BusinessStructure : {
         type: String,
     },
-    BusinessStructure : {
-        type: String,
-    },
+   
     //Section 20
     GrossReceiptsOrSales : {
         type: String,
@@ -333,6 +328,9 @@ const StaticOrganizerSchema = new mongoose.Schema({
         type: Number,
     },
     Accounting : {
+        type: Number,
+    },
+    Advertising:{
         type: Number,
     },
     BankCharges : {

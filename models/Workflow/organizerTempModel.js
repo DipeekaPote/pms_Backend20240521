@@ -15,6 +15,7 @@ const formElementSchema = new mongoose.Schema({
   ],
   text: { type: String }
 
+
 });
 
 
@@ -24,6 +25,7 @@ const SectionSchema = new mongoose.Schema({
   name: { type: String },
   text: { type: String },
   formElements : [formElementSchema],
+  
 });
 
 
